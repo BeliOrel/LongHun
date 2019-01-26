@@ -15,12 +15,55 @@ $fa-font-path:        "../webfonts";
 @import "~@fortawesome/fontawesome-free/scss/solid.scss";
 @import "~@fortawesome/fontawesome-free/scss/brands.scss";
 
+// Colours
+.blue{
+  color: $blue;
+}
+
+.indigo{
+  color: $indigo;
+}
+
+.purple{
+  color: $purple;
+}
+
+.pink{
+  color: $pink;
+}
+
+.red{
+  color: $red;
+}
+
+.orange{
+  color: $orange;
+}
+
+.yellow{
+  color: $yellow;
+}
+
+.green{
+  color: $green;
+}
+
+.teal{
+  color: $teal;
+}
+
+.cyan{
+  color: $cyan;
+}
+
+// End Colours
+
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
 .router-link-exact-active {
-  background-color: #482ac1;
+  background-color: #293d7c;
   color: #fff !important;
 }
