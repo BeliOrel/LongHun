@@ -50758,9 +50758,13 @@ var routes = [{
 }, {
   path: '/profile',
   component: __webpack_require__(/*! ./components/Profile.vue */ "./resources/js/components/Profile.vue").default
-}];
+}]; // When using history mode, the URL will look "normal," e.g.
+// http://oursite.com/user/id , without # sign in the URL
+
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
+  mode: 'history',
   routes: routes // short for `routes: routes`
+  //linkActiveClass: 'active'
 
 });
 /**

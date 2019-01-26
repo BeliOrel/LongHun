@@ -15,8 +15,12 @@ let routes = [
     { path: '/profile', component: require('./components/Profile.vue').default }
 ]
 
+// When using history mode, the URL will look "normal," e.g.
+// http://oursite.com/user/id , without # sign in the URL
 const router = new VueRouter({
-    routes // short for `routes: routes`
+    mode: 'history',
+    routes, // short for `routes: routes`
+    //linkActiveClass: 'active'
 })
 
 /**
