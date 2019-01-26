@@ -1991,6 +1991,12 @@ __webpack_require__.r(__webpack_exports__);
       })
     };
   },
+  methods: {
+    createUser: function createUser() {
+      // Submit the form via a POST request
+      this.form.post('api/user'); //.then(({ data }) => { console.log(data) })
+    }
+  },
   mounted: function mounted() {
     console.log('Users Component mounted.');
   }
@@ -38002,7 +38008,7 @@ var render = function() {
                   on: {
                     submit: function($event) {
                       $event.preventDefault()
-                      return _vm.login($event)
+                      return _vm.createUser($event)
                     },
                     keydown: function($event) {
                       _vm.form.onKeydown($event)

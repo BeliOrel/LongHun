@@ -55,7 +55,7 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form @submit.prevent="login" @keydown="form.onKeydown($event)">
+                <form @submit.prevent="createUser" @keydown="form.onKeydown($event)">
                     <div class="modal-body">
                         <div class="form-group">
                             <input v-model="form.name" type="text" name="name" placeholder="Name" class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
@@ -109,6 +109,13 @@
                     bio: '',
                     photo: ''
                 })
+            }
+        },
+        methods: {
+            createUser() {
+                // Submit the form via a POST request
+                this.form.post('api/user');
+                    //.then(({ data }) => { console.log(data) })
             }
         },
         mounted() {
