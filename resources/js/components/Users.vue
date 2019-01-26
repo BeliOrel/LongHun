@@ -3,7 +3,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card card-default">
-                    <div class="card-header">Profile</div>
+                    <div class="card-header">Users</div>
 
                     <div class="card-body">
                         I'm an example component.
@@ -17,7 +17,7 @@
 <script>
     export default {
         mounted() {
-            console.log('Profile Component mounted.')
+            console.log('Users Component mounted.')
         }
     }
 </script>
