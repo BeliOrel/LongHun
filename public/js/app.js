@@ -1996,35 +1996,40 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     createUser: function createUser() {
+      var _this = this;
+
       this.$Progress.start(); // Submit the form via a POST request
 
-      this.form.post('api/user'); //.then(({ data }) => { console.log(data) })
-      // fire custom event
+      this.form.post('api/user').then(function () {
+        // Promise -> execute this only 
+        // in case everything is OK
+        // fire custom event
+        Fire.$emit('AfterCreate');
+        $('#addNewUser').modal('hide');
+        Toast.fire({
+          type: 'success',
+          title: 'User created successfully'
+        });
 
-      Fire.$emit('AfterCreate');
-      $('#addNewUser').modal('hide');
-      Toast.fire({
-        type: 'success',
-        title: 'User created successfully'
-      });
-      this.$Progress.finish();
+        _this.$Progress.finish();
+      }).catch(function () {});
     },
     loadUsers: function loadUsers() {
-      var _this = this;
+      var _this2 = this;
 
       axios.get("api/user").then(function (_ref) {
         var data = _ref.data;
-        return _this.users = data.data;
+        return _this2.users = data.data;
       });
     }
   },
   created: function created() {
-    var _this2 = this;
+    var _this3 = this;
 
     this.loadUsers(); // reload the table with new data
 
     Fire.$on('AfterCreate', function () {
-      _this2.loadUsers();
+      _this3.loadUsers();
     });
   },
   mounted: function mounted() {
