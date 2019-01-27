@@ -15,6 +15,20 @@ window.Form = Form;
 Vue.component(HasError.name, HasError);
 Vue.component(AlertError.name, AlertError);
 
+// SweetAlert
+//import SweetAlert2 from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
+
+import Swal from 'sweetalert2';
+window.Swal = Swal;
+const toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000
+});
+window.Toast = toast;
+
 import VueProgressBar from 'vue-progressbar';
 Vue.use(VueProgressBar, {
     color: 'rgb(143, 255, 199)',

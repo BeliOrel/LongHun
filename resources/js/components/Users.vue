@@ -120,6 +120,13 @@
                 // Submit the form via a POST request
                 this.form.post('api/user');
                     //.then(({ data }) => { console.log(data) })
+                
+                $('#addNewUser').modal('hide');
+
+                Toast.fire({
+                    type: 'success',
+                    title: 'User created successfully'
+                });
                 this.$Progress.finish();
             },
             loadUsers(){
