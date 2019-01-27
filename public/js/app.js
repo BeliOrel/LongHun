@@ -1999,7 +1999,9 @@ __webpack_require__.r(__webpack_exports__);
       this.$Progress.start(); // Submit the form via a POST request
 
       this.form.post('api/user'); //.then(({ data }) => { console.log(data) })
+      // fire custom event
 
+      Fire.$emit('AfterCreate');
       $('#addNewUser').modal('hide');
       Toast.fire({
         type: 'success',
@@ -2017,7 +2019,13 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    this.loadUsers();
+    var _this2 = this;
+
+    this.loadUsers(); // reload the table with new data
+
+    Fire.$on('AfterCreate', function () {
+      _this2.loadUsers();
+    });
   },
   mounted: function mounted() {
     console.log('Users Component mounted.');
@@ -74239,7 +74247,11 @@ Vue.filter('upText', function (text) {
 });
 Vue.filter('formatedDate', function (date) {
   return moment__WEBPACK_IMPORTED_MODULE_0___default()(date).format('lll');
-});
+}); // for listening to events 
+// because we have more than just one Vue file
+// kind of global listener
+
+window.Fire = new Vue();
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

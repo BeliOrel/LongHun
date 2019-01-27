@@ -121,6 +121,9 @@
                 this.form.post('api/user');
                     //.then(({ data }) => { console.log(data) })
                 
+                // fire custom event
+                Fire.$emit('AfterCreate');
+                
                 $('#addNewUser').modal('hide');
 
                 Toast.fire({
@@ -135,6 +138,10 @@
         },
         created(){
             this.loadUsers();
+            // reload the table with new data
+            Fire.$on('AfterCreate', () => {
+                this.loadUsers();
+            });
         },
         mounted() {
             console.log('Users Component mounted.')

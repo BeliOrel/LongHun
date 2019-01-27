@@ -61,6 +61,11 @@ Vue.filter('formatedDate', function(date) {
     return moment(date).format('lll');
 });
 
+// for listening to events 
+// because we have more than just one Vue file
+// kind of global listener
+window.Fire = new Vue();
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
