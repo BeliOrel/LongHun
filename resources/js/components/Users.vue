@@ -116,9 +116,11 @@
         },
         methods: {
             createUser() {
+                this.$Progress.start();
                 // Submit the form via a POST request
                 this.form.post('api/user');
                     //.then(({ data }) => { console.log(data) })
+                this.$Progress.finish();
             },
             loadUsers(){
                 axios.get("api/user").then(({data}) => (this.users = data.data));
