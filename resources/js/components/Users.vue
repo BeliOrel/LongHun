@@ -7,7 +7,7 @@
                 <h3 class="card-title">Users Table</h3>
 
                 <div class="card-tools">
-                    <button class="btn btn-success" data-toggle="modal" data-target="#addNewUser"><i class="fas fa-user-plus"></i> Add New User</button>
+                    <button class="btn btn-success" @click="newModal"><i class="fas fa-user-plus"></i> Add New User</button>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -29,7 +29,7 @@
                         <td>{{ user.type | upText }}</td>
                         <td>{{ user.created_at | formatedDate }}</td>
                         <td>
-                            <a href="#">
+                            <a href="#" @click="editModal(user)">
                                 <i class="fa fa-edit blue"></i>
                             </a>
                             /
@@ -115,6 +115,13 @@
             }
         },
         methods: {
+            editModal(user) {
+                $('#addNewUser').modal('show');
+                this.form.fill(user);
+            },
+            newModal() {
+                $('#addNewUser').modal('show');
+            },
             deleteUser(id) {
                 Swal.fire({
                     title: 'Are you sure?',
@@ -134,7 +141,7 @@
                                 'User has been deleted.',
                                 'success'
                                 );
-                                Fire.$emit('AfterCreate');                           
+                                Fire.$emit('Reload');                           
                             })
                             .catch(() => {
                                 Swal("Failed!", "There was something wrong.", "warning");
@@ -151,7 +158,7 @@
                         // in case everything is OK
                         
                         // fire custom event
-                        Fire.$emit('AfterCreate');
+                        Fire.$emit('Reload');
                         
                         $('#addNewUser').modal('hide');
 
@@ -172,7 +179,7 @@
         created(){
             this.loadUsers();
             // reload the table with new data
-            Fire.$on('AfterCreate', () => {
+            Fire.$on('Reload', () => {
                 this.loadUsers();
             });
         },
