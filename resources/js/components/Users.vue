@@ -108,18 +108,35 @@
             editmode: true,
             users: {},
             form: new Form({
-                name: '',
-                email: '',
-                password: '',
-                type: '',
-                bio: '',
-                photo: ''
+              id: '',
+              name: '',
+              email: '',
+              password: '',
+              type: '',
+              bio: '',
+              photo: ''
             })
           }
         },
         methods: {
           updateUser() {
-
+            this.$Progress.start();
+            // call update() in UserController
+            this.form.put('api/user/' + this.form.id)
+            .then(() => {
+              // success
+              $('#addNewUser').modal('hide');
+              Swal.fire(
+                'Updated!',
+                'User has been updated.',
+                'success'
+                );
+              Fire.$emit('Reload'); // reload page
+              this.$Progress.finish();
+            })
+            .catch(() => {
+              this.$Progress.fail();
+            });
           },
           editModal(user) {
             this.editmode = true;
@@ -177,7 +194,7 @@
                       this.$Progress.finish();   
                   })
                   .catch(() => {
-
+                    this.$Progress.fail();
                   });                
           },
           loadUsers(){

@@ -1988,6 +1988,7 @@ __webpack_require__.r(__webpack_exports__);
       editmode: true,
       users: {},
       form: new Form({
+        id: '',
         name: '',
         email: '',
         password: '',
@@ -1998,7 +1999,22 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    updateUser: function updateUser() {},
+    updateUser: function updateUser() {
+      var _this = this;
+
+      this.$Progress.start(); // call update() in UserController
+
+      this.form.put('api/user/' + this.form.id).then(function () {
+        // success
+        $('#addNewUser').modal('hide');
+        Swal.fire('Updated!', 'User has been updated.', 'success');
+        Fire.$emit('Reload');
+
+        _this.$Progress.finish();
+      }).catch(function () {
+        _this.$Progress.fail();
+      });
+    },
     editModal: function editModal(user) {
       this.editmode = true;
       $('#addNewUser').modal('show');
@@ -2009,7 +2025,7 @@ __webpack_require__.r(__webpack_exports__);
       $('#addNewUser').modal('show');
     },
     deleteUser: function deleteUser(id) {
-      var _this = this;
+      var _this2 = this;
 
       Swal.fire({
         title: 'Are you sure?',
@@ -2022,7 +2038,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         // send the request to server
         if (result.value) {
-          _this.form.delete('api/user/' + id).then(function () {
+          _this2.form.delete('api/user/' + id).then(function () {
             Swal.fire('Deleted!', 'User has been deleted.', 'success');
             Fire.$emit('Reload');
           }).catch(function () {
@@ -2032,7 +2048,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     createUser: function createUser() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.$Progress.start(); // Submit the form via a POST request
 
@@ -2047,25 +2063,27 @@ __webpack_require__.r(__webpack_exports__);
           title: 'User created successfully'
         });
 
-        _this2.$Progress.finish();
-      }).catch(function () {});
+        _this3.$Progress.finish();
+      }).catch(function () {
+        _this3.$Progress.fail();
+      });
     },
     loadUsers: function loadUsers() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.get("api/user").then(function (_ref) {
         var data = _ref.data;
-        return _this3.users = data.data;
+        return _this4.users = data.data;
       });
     }
   },
   created: function created() {
-    var _this4 = this;
+    var _this5 = this;
 
     this.loadUsers(); // reload the table with new data
 
     Fire.$on('Reload', function () {
-      _this4.loadUsers();
+      _this5.loadUsers();
     });
   },
   mounted: function mounted() {

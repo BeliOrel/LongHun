@@ -62,7 +62,17 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $this->validate($request, [
+            'name' => 'required|string|max:190',
+            // this email is already in DB, so we need to escape it
+            'email' => 'required|email|max:190|unique:users,email,'.$user->id,
+            'password' => 'sometimes|string|min:6|max:190'
+        ]);
+
+        $user->update($request->all());
+        return ['message' => 'Updated'];
     }
 
     /**
