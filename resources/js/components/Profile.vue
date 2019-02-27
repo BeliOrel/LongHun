@@ -9,7 +9,7 @@
                         <h5 class="widget-user-desc">Web Designer</h5>
                     </div>
                     <div class="widget-user-image">
-                        <img class="img-circle" src="/img/profile.png" alt="User Avatar">
+                        <img class="img-circle" :src="getProfilePhoto()" alt="User Avatar">
                     </div>
                     <div class="card-footer">
                         <div class="row">
@@ -95,13 +95,13 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="password" class="col-sm-12 control-label">Passport (leave empty if not changing)</label>
+                                    <label for="password" class="col-sm-12 control-label">Password (leave empty if not changing)</label>
 
                                     <div class="col-sm-12">
                                     <input type="password"
                                         class="form-control" v-model="form.password"
                                         id="password"
-                                        placeholder="Passport" :class="{ 'is-invalid': form.errors.has('password') }"
+                                        placeholder="Password" :class="{ 'is-invalid': form.errors.has('password') }"
                                     >
                                     <has-error :form="form" field="password"></has-error>
                                     </div>
@@ -160,11 +160,15 @@
             console.log('Profile Component mounted.')
         },
         methods: {
+            getProfilePhoto() {
+                return (this.form.photo.length > 100) ? this.form.photo : "img/profile/" + this.form.photo;
+            },
             updateInfo() {
                 this.$Progress.start();
                 //axios.put("api/profile")
                 this.form.put('api/profile')
                 .then(() => {
+                    Fire.$emit('Reload');
                     this.$Progress.finish();
                 })
                 .catch(() => {

@@ -132,13 +132,21 @@ class UserController extends Controller
         ]);
 
         $currentPhoto = $user->photo;
-
+        
+        // check if it's the same image as in DB (name)
         if($request->photo != $currentPhoto) {
             // extract the extension from the request data of photo
             $name = time().'.' . explode('/', explode(':', substr($request->photo, 0, strpos($request->photo, ';')))[1])[1];
             Image::make($request->photo)->save(public_path('img/profile/').$name);
 
             $request->merge(['photo' => $name]);
+
+            $userPhoto = public_path('img/profile/').$currentPhoto;
+
+            // delete old image 
+            if(file_exists($userPhoto)){
+                @unlink($userPhoto);
+            }
         }
 
         if(!empty($request->password)){
