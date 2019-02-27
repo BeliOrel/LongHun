@@ -67,14 +67,16 @@
                                     <label for="inputName" class="col-sm-2 control-label">Name</label>
 
                                     <div class="col-sm-12">
-                                    <input type="text" v-model="form.name" class="form-control" id="inputName" placeholder="Name">
+                                    <input type="text" v-model="form.name" class="form-control" id="inputName" placeholder="Name" :class="{ 'is-invalid': form.errors.has('name') }">
+                                    <has-error :form="form" field="name"></has-error>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputEmail" class="col-sm-2 control-label">Email</label>
 
                                     <div class="col-sm-12">
-                                    <input type="email" v-model="form.email"  class="form-control" id="inputEmail" placeholder="Email" >
+                                    <input type="email" v-model="form.email"  class="form-control" id="inputEmail" placeholder="Email" :class="{ 'is-invalid': form.errors.has('email') }">
+                                    <has-error :form="form" field="email"></has-error>                            
                                     </div>
                                 </div>
 
@@ -90,18 +92,18 @@
                                     <div class="col-sm-12">
                                         <input type="file" @change="updateProfile" name="photo" class="form-input">
                                     </div>
-
                                 </div>
 
                                 <div class="form-group">
                                     <label for="password" class="col-sm-12 control-label">Passport (leave empty if not changing)</label>
 
                                     <div class="col-sm-12">
-                                    <input type="password" v-model="form.password"
-                                        class="form-control"
+                                    <input type="password"
+                                        class="form-control" v-model="form.password"
                                         id="password"
-                                        placeholder="Passport"
+                                        placeholder="Passport" :class="{ 'is-invalid': form.errors.has('password') }"
                                     >
+                                    <has-error :form="form" field="password"></has-error>
                                     </div>
                                 </div>
 

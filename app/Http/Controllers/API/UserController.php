@@ -123,12 +123,29 @@ class UserController extends Controller
     {
         $user = auth('api')->user();
 
-        if($request->photo) {
+        $this->validate($request, [
+            'name' => 'required|string|max:190',
+            // this email is already in DB, so we need to escape it
+            // it's required but not for the currently logged user
+            'email' => 'required|email|max:190|unique:users,email,'.$user->id,
+            'password' => 'sometimes|string|min:6|max:190'
+        ]);
+
+        $currentPhoto = $user->photo;
+
+        if($request->photo != $currentPhoto) {
             // extract the extension from the request data of photo
             $name = time().'.' . explode('/', explode(':', substr($request->photo, 0, strpos($request->photo, ';')))[1])[1];
             Image::make($request->photo)->save(public_path('img/profile/').$name);
+
+            $request->merge(['photo' => $name]);
         }
-        
-        // return ['message' => 'Profile update successful'];
+
+        if(!empty($request->password)){
+            $request->merge(['password' => Hash::make($request['password'])]);
+        }
+
+        $user->update($request->all());        
+        return ['message' => 'Profile update successful'];
     }
 }
