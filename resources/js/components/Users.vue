@@ -218,11 +218,22 @@
           }
         },
         created(){
-            this.loadUsers();
-            // reload the table with new data
-            Fire.$on('Reload', () => {
-                this.loadUsers();
-            });
+          // listen for event 'searching'
+          Fire.$on('searching', () => {
+
+            // we need to access data from parent component
+            let query = this.$parent.search;
+            axios.get('api/findUser?q=' + query)
+            .then((data) => {
+              this.users = data.data;
+            })
+            .catch(() => {});
+          });
+          this.loadUsers();
+          // reload the table with new data
+          Fire.$on('Reload', () => {
+              this.loadUsers();
+          });
         },
         mounted() {
             console.log('Users Component mounted.');

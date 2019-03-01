@@ -161,4 +161,19 @@ class UserController extends Controller
         $user->update($request->all());        
         return ['message' => 'Profile update successful'];
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function search()
+    {
+        if($search = \Request::get('q')){
+            $users = User::where(function($query) use ($search){
+                $query->where('name', 'LIKE', "%$search%")->orWhere('email', 'LIKE', "%$search%");
+            })->paginate(10);
+        }
+        return $users;
+    }
 }
