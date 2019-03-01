@@ -26,6 +26,18 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        // ACL (Access Control List)
+        // gates for all the possible types of users
+        Gate::define('isAdmin', function($user){
+            return $user->type === 'admin';
+        });
+        Gate::define('isAuthor', function($user){
+            return $user->type === 'author';
+        });
+        Gate::define('isUser', function($user){
+            return $user->type === 'user';
+        });
+
         Passport::routes();
     }
 }

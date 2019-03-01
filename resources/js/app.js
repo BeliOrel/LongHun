@@ -15,6 +15,10 @@ window.Form = Form;
 Vue.component(HasError.name, HasError);
 Vue.component(AlertError.name, AlertError);
 
+// you can use this everywhere in js -> prototyping
+import Gate from "./Gate";
+Vue.prototype.$gate = new Gate(window.user);
+
 // SweetAlert
 //import SweetAlert2 from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
