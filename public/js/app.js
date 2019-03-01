@@ -2316,7 +2316,7 @@ __webpack_require__.r(__webpack_exports__);
     loadUsers: function loadUsers() {
       var _this4 = this;
 
-      if (this.$gate.isAdmin()) {
+      if (this.$gate.isAdminOrAuthor()) {
         axios.get("api/user").then(function (_ref) {
           var data = _ref.data;
           return _this4.users = data.data;
@@ -57572,7 +57572,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************************************************!*\
   !*** ./node_modules/sweetalert2/src/staticMethods.js ***!
   \*******************************************************/
-/*! exports provided: isValidParameter, isUpdatableParameter, isDeprecatedParameter, argsToParams, getContainer, getPopup, getTitle, getContent, getImage, getIcons, getCloseButton, getActions, getConfirmButton, getCancelButton, getFooter, getFocusableElements, getValidationMessage, isLoading, isVisible, clickConfirm, clickCancel, fire, mixin, queue, getQueueStep, insertQueueStep, deleteQueueStep, showLoading, enableLoading, getTimerLeft, stopTimer, resumeTimer, toggleTimer, increaseTimer, isTimerRunning */
+/*! exports provided: argsToParams, getContainer, getPopup, getTitle, getContent, getImage, getIcons, getCloseButton, getActions, getConfirmButton, getCancelButton, getFooter, getFocusableElements, getValidationMessage, isLoading, isVisible, clickConfirm, clickCancel, fire, mixin, queue, getQueueStep, insertQueueStep, deleteQueueStep, showLoading, enableLoading, getTimerLeft, stopTimer, resumeTimer, toggleTimer, increaseTimer, isTimerRunning, isValidParameter, isUpdatableParameter, isDeprecatedParameter */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -62010,7 +62010,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _vm.$gate.isAdmin()
+    _vm.$gate.isAdminOrAuthor()
       ? _c("div", { staticClass: "row justify-content-center mt-5" }, [
           _c("div", { staticClass: "col-md-12" }, [
             _c("div", { staticClass: "card" }, [
@@ -62100,7 +62100,7 @@ var render = function() {
         ])
       : _vm._e(),
     _vm._v(" "),
-    !_vm.$gate.isAdmin()
+    !_vm.$gate.isAdminOrAuthor()
       ? _c(
           "div",
           { staticClass: "row justify-content-center my-4" },
@@ -77507,14 +77507,27 @@ function () {
       return this.user.type === 'admin';
     }
   }, {
+    key: "isAuthorOrUser",
+    value: function isAuthorOrUser() {
+      if (this.user.type === 'author' || this.user.type === 'user') {
+        return true;
+      }
+
+      return false;
+    }
+  }, {
     key: "isUser",
     value: function isUser() {
       return this.user.type === 'user';
     }
   }, {
-    key: "isAuthor",
-    value: function isAuthor() {
-      return this.user.type === 'author';
+    key: "isAdminOrAuthor",
+    value: function isAdminOrAuthor() {
+      if (this.user.type === 'author' || this.user.type === 'admin') {
+        return true;
+      }
+
+      return false;
     }
   }]);
 

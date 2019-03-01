@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="row justify-content-center mt-5" v-if="$gate.isAdmin()">
+        <div class="row justify-content-center mt-5" v-if="$gate.isAdminOrAuthor()">
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
@@ -47,7 +47,7 @@
           </div>
         </div>
 
-        <div class="row justify-content-center my-4" v-if="!$gate.isAdmin()">
+        <div class="row justify-content-center my-4" v-if="!$gate.isAdminOrAuthor()">
           <not-found></not-found>
         </div>
 
@@ -202,7 +202,7 @@
                   });                
           },
           loadUsers(){
-            if(this.$gate.isAdmin()){
+            if(this.$gate.isAdminOrAuthor()){
               axios.get("api/user").then(({data}) => (this.users = data.data));
             }
           }
