@@ -174,6 +174,11 @@ class UserController extends Controller
                 $query->where('name', 'LIKE', "%$search%")->orWhere('email', 'LIKE', "%$search%");
             })->paginate(10);
         }
+        else {
+            // if query is empty
+            // just return some users
+            $users = User::latest()->paginate(5);
+        }
         return $users;
     }
 }

@@ -79078,11 +79078,14 @@ var app = new Vue({
     search: ''
   },
   methods: {
-    searchtxt: function searchtxt() {
+    // we use 'lodash' (_. signifies it), 
+    // so we can delay sending request to the server -> every 1000ms
+    // we don't want to send request every time we push a key
+    searchtxt: _.debounce(function () {
       Fire.$emit('searching'); // create custom event named 'searching'
 
       console.log('Searching...');
-    }
+    }, 1000)
   }
 });
 

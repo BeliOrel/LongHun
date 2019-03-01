@@ -32,7 +32,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- SEARCH -->
     <div class="input-group input-group-sm s-text">
-      <input class="form-control form-control-navbar" @keyup.enter="searchtxt" v-model="search" type="search" placeholder="Search" aria-label="Search">
+      <input class="form-control form-control-navbar" @keyup="searchtxt" v-model="search" type="search" placeholder="Search" aria-label="Search">
       <div class="input-group-append">
         <button class="btn btn-navbar" @click="searchtxt">
           <i class="fa fa-search"></i>
