@@ -44,11 +44,14 @@ Vue.use(VueProgressBar, {
 
 import VueRouter from 'vue-router';
 Vue.use(VueRouter)
+
+// '*' means any other url that's not listed
 let routes = [
     { path: '/dashboard', component: require('./components/Dashboard.vue').default },
     { path: '/developer', component: require('./components/Developer.vue').default },
     { path: '/profile', component: require('./components/Profile.vue').default },
     { path: '/users', component: require('./components/Users.vue').default },
+    { path: '*', component: require('./components/NotFound.vue').default }
 ]
 
 // When using history mode, the URL will look "normal," e.g.
