@@ -18,6 +18,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('invoice', function () {
+    return view('invoice');
+});
 
 // for vue routes, because we don't use # in the URL...
 // so it can't be mixed with Laravel routes

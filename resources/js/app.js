@@ -128,6 +128,9 @@ const app = new Vue({
         searchtxt: _.debounce(() => {
             Fire.$emit('searching'); // create custom event named 'searching'
             console.log('Searching...');
-        }, 1000)
+        }, 1000),
+        printme: function(){
+            window.print();
+        }
     }
 });
